@@ -1,84 +1,75 @@
 import "./style.css";
-import ChickenHome from "./chicken-home.jpg";
+import ChickenHome from "./chicken-home.png";
 import Logo from "./logo.png";
 
-class ListItem{
-
-    _href;
-    _textContent
+class Link{
+    _link = null;
 
     constructor(href, textContent){
-        this._href = href;
-        this._textContent = textContent;
+        this._link = document.createElement("a");
+        this._link.textContent = textContent;
+        this._link.setAttribute("href", href);
     }
 
-    createAchor(){
+    getLink(){
+        return this._link;
+    }
+}
 
-        const anchor = document.createElement("a");
-        anchor.textContent = this._textContent;
-        anchor.setAttribute("href", this._href);
+class List{
+    _items = null;
 
-        return anchor;
-
+    constructor(itemsArray){
+        this._items = itemsArray;
     }
 
-    createListItem(){
-
+    createListItem(item){
         const listItem = document.createElement("li");
-
-        listItem.append(this.createAchor());
+        listItem.append(item);
 
         return listItem;
-
     }
 
-}
-
-class Header {
-    
-    _listItems;
-    
-    constructor(){
-        const homeItem = new ListItem(".", "Home");
-        const menuItem = new ListItem(".", "Menu");
-        const aboutItem = new ListItem(".", "About Us");
-        this._listItems = Array(homeItem.createListItem(), 
-            menuItem.createListItem(), aboutItem.createListItem());
-    }
-    
     createList(){
         const list = document.createElement("ul");
-        
-        this._listItems.map(listItem => list.append(listItem));
-        
-        return list;
-    }
-    
-    createLogo(){
-        const logo = document.createElement("img");
-        logo.setAttribute("alt", "TYL logo");
-        logo.setAttribute("src", Logo);
-        
-        return logo;
-    }
-    
-    createHeader(){
-        const header = document.createElement("header");
-        const nav = document.createElement("nav");
-        
-        nav.append(this.createLogo());
-        nav.append(this.createList());
-        header.append(nav);
+        this._items.map(item => list.append(this.createListItem(item)));
 
-        return header;
+        return list;
     }
 }
 
-const Display = (() => {
+class Image{
+    _image;
+
+     constructor(src, alt){
+         this._image = document.createElement("img");
+         this._image.setAttribute("src", src);
+         this._image.setAttribute("alt", alt);
+     }
+
+     getImage(){
+         return this._image;
+     }
+}
+
+const DisplayPage = (() => {
+
     const content = document.getElementById("content");
-    
-    const header = new Header();
-    content.append(header.createHeader());
+    const header = document.createElement("header");
+    const nav = document.createElement("nav");
+
+    const logo = new Image(Logo, "TYL logo");
+
+    const homeLink = new Link("#", "Home");
+    const menuLink = new Link("#", "Menu");
+    const aboutLink = new Link("#", "About US");
+
+    const listItems = Array(homeLink.getLink(), menuLink.getLink(), aboutLink.getLink());
+    const list = new List(listItems);
+
+    nav.append(logo.getImage());
+    nav.append(list.createList());
+    header.append(nav);
+    content.append(header);
+
 })();
-
-
