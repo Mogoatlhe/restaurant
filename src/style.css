@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital@1&family=Quintessential&display=swap');
 
 html {
     box-sizing: border-box;
@@ -8,5 +9,57 @@ html {
 }
 
 body{
-    background: linear-gradient(to left, rgba(110, 0, 0, 0.2), rgba(0, 0, 100, 0.2));
+    /* background: linear-gradient(to left, rgba(110, 0, 0, 0.2), rgba(0, 0, 100, 0.2)); */
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+li{
+    list-style-type: none;
+}
+
+nav{
+    display: grid;
+    grid-template-columns: 10% 80%;
+    column-gap: 10vw;
+    align-items: center;
+}
+
+.logo-header{
+    width: 12vw;
+}
+
+.home-nav-list{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(15%, 20px));
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    align-items: center;
+    font-weight: bolder;
+}
+
+.active{
+    color:rgba(220, 0, 0, 0.7);
+}
+
+main{
+    padding: 3% 3% 0% 10%;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    justify-items: center;
+}
+
+.tagline{
+    width: 100%;
+    font-size: 4rem;
+    font-family: 'Quintessential', cursive;
+    color:rgba(220, 0, 0, 0.7);
+}
+
+.home-image{
+    /* border: solid 1px blue; */
+    width: 35vw;
 }
