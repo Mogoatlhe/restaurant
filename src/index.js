@@ -1,6 +1,6 @@
 import "./style.css";
-import ChickenHome from "./chicken-home.png";
-import Logo from "./logo.png";
+import ChickenHome from "./images/chicken-home.png";
+import Logo from "./images/logo.png";
 
 class Link{
     _link = null;
