@@ -1,6 +1,10 @@
 import "./style.css";
 import ChickenHome from "./images/chicken-home.png";
 import Logo from "./images/logo.png";
+import SoftbodyChicken from "./images/products/Softbody-Whole-Chicken.jpg"
+import HardbodyChicken from "./images/products/Hardbody-Whole-Chicken.jpg"
+import Innards from "./images/products/Innards-pack.jpg"
+import Eggs from "./images/products/Eggs-x30-(XL).jpeg"
 
 class Link{
     _link = null;
@@ -183,6 +187,68 @@ class HomePage{
     }
 }
 
+class Menu{
+
+    _itemContainerArr = null;
+
+    constructor(){
+
+        this._itemContainerArr = new Array();
+
+        const items = [
+            {
+                "name": "Softbody Whole Chicken",
+                "price": "R70",
+                "path": SoftbodyChicken,
+                "alt": "softbody whole chicken image"
+            },
+            {
+                "name": "Hardbody Whole Chicken",
+                "price": "R70",
+                "path": HardbodyChicken,
+                "alt": "hardbody whole chicken image"
+            },
+            {
+                "name": "Eggs x30 (XL)",
+                "price": "R50",
+                "path": Eggs,
+                "alt": "Eggs image"
+            },
+            {
+                "name": "Innards Pack",
+                "price": "R10",
+                "path": Innards,
+                "alt": "Innards image"
+            }
+        ]
+        
+
+        this.setMenuItem(items);
+
+    }
+
+    setMenuItem(items){
+
+        items.map((item) => {
+
+            const img = new Image(item.path, item.alt, "item-image");
+            const h4 = new Heading("h4", item.name, "item-name");
+            const price = new Paragraph(item.price, "item-price");
+            const itemContainerChild = new Array(img.getImage(), h4.getHeading(), price.getParagraph());
+
+            const itemContainer = new Wrap(itemContainerChild, "item-container");
+             
+            this._itemContainerArr.push(itemContainer.getWrap());
+            
+        });
+    }
+    
+    getItemsContainer(){
+        const itemsContainer = new Wrap(this._itemContainerArr, "items-container");
+        return itemsContainer.getWrap();
+    }
+}
+
 class NavStatus{
 
     _navItems = null;
@@ -232,6 +298,10 @@ class Main{
         const childNodes = [...this._main.children];
 
         childNodes.map(childNode => this._main.removeChild(childNode));
+    }
+
+    addChildren(children){
+        this._main.append(children);
     }
 }
 
@@ -310,6 +380,11 @@ const DisplayPage = (() => {
             navStatus.setNavStatus(position);
 
             main.removeChildren();
+
+            if(position === 1){
+                const menu = new Menu();
+                main.addChildren(menu.getItemsContainer());
+            }
     
         });
     });
