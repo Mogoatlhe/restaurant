@@ -219,6 +219,22 @@ class IdiomaticText{
     }
 }
 
+class Main{
+
+    _main = null;
+
+    constructor(){
+        this._main = document.getElementsByTagName("main")[0];
+    }
+
+    removeChildren(){
+
+        const childNodes = [...this._main.children];
+
+        childNodes.map(childNode => this._main.removeChild(childNode));
+    }
+}
+
 const DisplayPage = (() => {
 
     const content = document.getElementById("content");
@@ -279,4 +295,22 @@ const DisplayPage = (() => {
 
     content.append(footer);
 
+    const navigation = document.getElementsByClassName("home-nav-list");
+    const navItems = [...(navigation[0].children)];
+    
+    navItems.map((navItem, position) => {
+        navItem.addEventListener("click", () => {
+            if(navItem.classList.contains("active")){
+                return;
+            }
+
+            const main = new Main();
+
+            navStatus.resetNavStatus();
+            navStatus.setNavStatus(position);
+
+            main.removeChildren();
+    
+        });
+    });
 })();
