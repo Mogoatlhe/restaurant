@@ -83,6 +83,10 @@ class Paragraph{
     _paragraph = null;
 
     constructor(content, className){
+        this.setParagraph(content, className);
+    }
+    
+    setParagraph(content, className){
         this._paragraph = document.createElement("p");
         this._paragraph.classList.add(className);
         this._paragraph.textContent = content;
@@ -154,6 +158,7 @@ class HomePage{
         const paragraph = new Paragraph("Lorem ipsum dolor sit amet. Ab sapiente tempore aut repudiandae aspernatur in magnam enim eos accusantium recusandae vel totam aperiam est quas tempore! Sed minima dignissimos et delectus quia non praesentium velit in Quis repellendus sit dolorem molestiae. Non commodi repudiandae ea voluptates ipsum At iure impedit. Et esse voluptate aut dolores dolore et blanditiis veritatis. maxime deleniti ut illum dolorem sed nostrum cupiditate eum ipsa quae vel incidunt cupiditate. Et sunt autem id incidunt distinctio aut quis voluptatem.",
         "about-paragraph");
 
+
         this._homeMain.append(wrap.getWrap());
         this._homeMain.append(image.getImage());
 
@@ -163,8 +168,11 @@ class HomePage{
         this._homeMain.append(wrap.getWrap());
 
         h3.setHeading("h3", "Hours", "hours-heading");
-        children = new Array(h3.getHeading());
+        paragraph.setParagraph("Mon - Fri : 8am - 5pm", "hours-paragraph");
+        children = new Array(h3.getHeading(), paragraph.getParagraph());
+        wrap.setWrap(children, "hours-container");
 
+        this._homeMain.append(wrap.getWrap());
         
         return this._homeMain;
     }

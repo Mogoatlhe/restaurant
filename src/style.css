@@ -103,3 +103,12 @@ main{
 .about-paragraph{
     text-align: justify;
 }
+
+.hours-container{
+    padding: 3%;
+    color:rgba(220, 0, 0, 0.7);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
