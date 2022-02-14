@@ -300,6 +300,10 @@ class Main{
         childNodes.map(childNode => this._main.removeChild(childNode));
     }
 
+    removeMain(){
+        this._main.remove();
+    }
+
     addChildren(children){
         this._main.append(children);
     }
@@ -374,16 +378,19 @@ const DisplayPage = (() => {
                 return;
             }
 
-            const main = new Main();
+            const mainTag = new Main();
 
             navStatus.resetNavStatus();
             navStatus.setNavStatus(position);
 
-            main.removeChildren();
+            mainTag.removeChildren();
 
-            if(position === 1){
+            if(position === 0){
+                mainTag.removeMain();
+                content.insertBefore(homePage.createHomeContent(), footer);
+            }else if(position === 1){
                 const menu = new Menu();
-                main.addChildren(menu.getItemsContainer());
+                mainTag.addChildren(menu.getItemsContainer());
             }
     
         });
