@@ -199,6 +199,7 @@ const DisplayPage = (() => {
 
     const content = document.getElementById("content");
     const header = document.createElement("header");
+    const footer = document.createElement("footer");
     const nav = document.createElement("nav");
     const main = document.createElement("main");
 
