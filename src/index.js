@@ -5,9 +5,14 @@ import Logo from "./logo.png";
 class Link{
     _link = null;
 
-    constructor(href, textContent){
+    constructor(href, content, text){
         this._link = document.createElement("a");
-        this._link.textContent = textContent;
+
+        if(text === undefined || text === true){
+            this._link.textContent = content;
+        }else{
+            this._link.append(content);
+        }
         this._link.setAttribute("href", href);
     }
 
@@ -195,6 +200,25 @@ class NavStatus{
     }
 }
 
+class IdiomaticText{
+
+    _iTag = null;
+
+    constructor(className){
+        this._iTag = document.createElement("i");
+        this.assignClassNames(className);
+    }
+
+    assignClassNames(className){
+        const classNameArr = className.split(" ");
+        classNameArr.map(currClass => this._iTag.classList.add(currClass));
+    }
+
+    getITag(){
+        return this._iTag;
+    }
+}
+
 const DisplayPage = (() => {
 
     const content = document.getElementById("content");
@@ -209,9 +233,32 @@ const DisplayPage = (() => {
     const menuLink = new Link("#", "Menu");
     const aboutLink = new Link("#", "About Us");
 
-    const listItems = Array(homeLink.getLink(), menuLink.getLink(), aboutLink.getLink());
-    const list = new List(listItems, "home-nav-list");
+    const facebook = new IdiomaticText("fa-brands fa-facebook-square");
+    const instagram = new IdiomaticText("fa-brands fa-instagram-square");
+    const messenger = new IdiomaticText("fa-brands fa-facebook-messenger");
+    const github = new IdiomaticText("fa-brands fa-github-square");
     
+    const facebookLink = new Link("https://web.facebook.com/pg/ThuanyoYaLesediPoultry/about/",
+    facebook.getITag(), false);
+    const instagramLink = new Link("https://instagram.com/thuanyo_ya_lesedi_poultry_/",
+    instagram.getITag(), false);
+    const messengerLink = new Link("https://m.me/ThuanyoYaLesediPoultry/",
+    messenger.getITag(), false);
+    const githubLink = new Link("https://github.com/mogoatlhe",
+    github.getITag(), false);
+    
+    const listItems = Array(homeLink.getLink(), menuLink.getLink(), aboutLink.getLink());
+    const footerLinkItems = Array(facebookLink.getLink(), instagramLink.getLink(), messengerLink.getLink());
+    const creatorLinkItems = Array(githubLink.getLink());
+
+    const list = new List(listItems, "home-nav-list");
+    const footerList = new List(footerLinkItems, "footer-socials-list");
+    const creatorList = new List(creatorLinkItems, "creator-socials");
+
+    const paragraph = new Paragraph("Contact Us", "contact-us-text");
+    const wrap = new Wrap(Array(paragraph.getParagraph(), footerList.createList()),
+    "company-socials");
+
     
     nav.append(logo.getImage());
     nav.append(list.createList());
@@ -222,5 +269,14 @@ const DisplayPage = (() => {
     const homePage = new HomePage(main, navStatus);
     
     content.append(homePage.createHomeContent());
+
+    footer.append(wrap.getWrap());
+
+    paragraph.setParagraph("Created by:", "creator-text");
+    wrap.setWrap(Array(paragraph.getParagraph(), creatorList.createList()),
+    "creator-container");
+    footer.append(wrap.getWrap());
+
+    content.append(footer);
 
 })();
