@@ -63,14 +63,75 @@ class Heading{
     _heading = null;
 
     constructor(headingType, headingContent, headingClass){
+        this.setHeading(headingType, headingContent, headingClass);
+    }
+
+    setHeading(headingType, headingContent, headingClass){
         this._heading = document.createElement(headingType);
         this._heading.textContent = headingContent;
         this._heading.classList.add(headingClass);
     }
+    
 
     getHeading(){
         return this._heading;
     }
+}
+
+class Paragraph{
+
+    _paragraph = null;
+
+    constructor(content, className){
+        this._paragraph = document.createElement("p");
+        this._paragraph.classList.add(className);
+        this._paragraph.textContent = content;
+    }
+
+    getParagraph(){
+        return this._paragraph;
+    }
+}
+
+class Wrap{
+
+    _div = null;
+
+    constructor(children, wrapClass){
+        this.setWrap(children, wrapClass);
+    }
+    
+    setWrap(children, wrapClass){
+        this._div = document.createElement("div");
+        this._div.classList.add(wrapClass);
+        
+        children.map( child => this._div.append(child));
+    }
+
+    getWrap(){
+        return this._div;
+    }
+}
+
+class Input{
+    
+    _input = null;
+
+    constructor(type, inputClass, inputValue, inputName){
+        this._input = document.createElement("input");
+        this._input.setAttribute("type", type);
+        this._input.setAttribute("class", inputClass);
+        this._input.setAttribute("value", inputValue);
+        
+        if(inputName !== undefined){
+            this._input.setAttribute("name", inputName);
+        }
+    }
+
+    getInput(){
+        return this._input;
+    }
+
 }
 
 class HomePage{ 
@@ -83,12 +144,28 @@ class HomePage{
     }
 
     createHomeContent(){
-        const h2 = new Heading("h1", "Serving the best quality chicken", "tagline");
+        const h1 = new Heading("h1", "Serving the best quality chicken", "tagline");
+        const h3 = new Heading("h3", "About"
+        , "about-heading");
         const image = new Image(ChickenHome, "chicken breasts image", "home-image");
+        const menuButton = new Input("button", "menu-button", "View Menu");
+        let children = new Array(h1.getHeading(), menuButton.getInput());
+        const wrap = new Wrap(children, "heading-wrap");
+        const paragraph = new Paragraph("Lorem ipsum dolor sit amet. Ab sapiente tempore aut repudiandae aspernatur in magnam enim eos accusantium recusandae vel totam aperiam est quas tempore! Sed minima dignissimos et delectus quia non praesentium velit in Quis repellendus sit dolorem molestiae. Non commodi repudiandae ea voluptates ipsum At iure impedit. Et esse voluptate aut dolores dolore et blanditiis veritatis. maxime deleniti ut illum dolorem sed nostrum cupiditate eum ipsa quae vel incidunt cupiditate. Et sunt autem id incidunt distinctio aut quis voluptatem.",
+        "about-paragraph");
 
-        this._homeMain.append(h2.getHeading());
+        this._homeMain.append(wrap.getWrap());
         this._homeMain.append(image.getImage());
 
+        children = new Array(h3.getHeading(), paragraph.getParagraph());
+        wrap.setWrap(children, "about-container");
+         
+        this._homeMain.append(wrap.getWrap());
+
+        h3.setHeading("h3", "Hours", "hours-heading");
+        children = new Array(h3.getHeading());
+
+        
         return this._homeMain;
     }
 }
