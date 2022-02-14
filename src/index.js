@@ -11,6 +11,7 @@ const DisplayPage = (() => {
 
     const content = document.getElementById("content");
     const main = document.createElement("main");
+    const menuBtn = document.getElementsByClassName("menu-button");
     
     const header = new Header();
     content.append(header.getHeader());
@@ -51,4 +52,6 @@ const DisplayPage = (() => {
     
         });
     });
+
+    menuBtn[0].addEventListener("click", () => navItems[1].click());
 })();
